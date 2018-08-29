@@ -3,7 +3,7 @@ from appium import webdriver
 import time
 import uiautomator2
 import unittest
-
+import HTMLTestRunner
 
 class Mytest(unittest.TestCase):  # 继承unittest.TestCase
     def tearDown(self):
@@ -45,6 +45,7 @@ class Mytest(unittest.TestCase):  # 继承unittest.TestCase
          time.sleep(1)
          self.driver.swipe(start_x=1000, start_y=1000, end_x=200, end_y=1000, duration=800)
          time.sleep(1)
+         #点击“立即体验”
          self.driver.find_element_by_xpath('//android.widget.Button[@resource-id=\"com.meiweigx.customer:id/btn\"]').click()
          time.sleep(1)
 # driver.find_element_by_id("com.meiweigx.customer:id/btn").click()
