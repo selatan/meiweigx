@@ -1,23 +1,19 @@
 # -*- coding:utf-8 -*-
 
+# 安装app并启动进首页
 from appium import webdriver
 import time
 import os
-# import uiautomator2
 import unittest
 
-#import HTMLTestRunner
+# import HTMLTestRunner
+
+
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
 
-class mytest(unittest.TestCase):  # 继承unittest.TestCase
-    def tearDown(self):
-        print('————————用例执行后')  # 每个测试用例执行之后做该操作
-
+class test_class_01(unittest.TestCase):  # 继承unittest.TestCase
     def setUp(self):
-        print('————————用例执行前')  # 每个测试用例执行之前做该操作
-
-    def test_info(self):
         desired_caps = {}
         # 7.0以下系统需要把这一行注释掉
         desired_caps['automationName'] = 'UiAutomator2'
@@ -29,42 +25,49 @@ class mytest(unittest.TestCase):  # 继承unittest.TestCase
         desired_caps['appPackage'] = 'com.meiweigx.customer'
         desired_caps['appActivity'] = 'com.meiweigx.customer.ui.LaunchActivity'
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
-        time.sleep(5)
+        time.sleep(2)
 
-    def test_limit(self):
+    # def tearDown(self):
+    #     self.driver.close_app()
+    #     self.driver.quit()
+    #     print('————————用例执行后')  # 每个测试用例执行之后做该操作
+
+    def test_1_start(self):
         # 点击“不允许后不再访问”
         self.driver.find_element_by_id('com.android.packageinstaller:id/do_not_ask_checkbox').click()
-        time.sleep(1)
         # 点击始终允许
         self.driver.find_element_by_id('com.android.packageinstaller:id/permission_allow_button').click()
-        time.sleep(1)
         # 第二个弹框点击始终允许
         self.driver.find_element_by_id('com.android.packageinstaller:id/permission_allow_button').click()
-        time.sleep(1)
         # 点击“不允许后不再访问”
         self.driver.find_element_by_id('com.android.packageinstaller:id/do_not_ask_checkbox').click()
-        time.sleep(1)
         # 第三个弹框点击始终允许
         self.driver.find_element_by_id('com.android.packageinstaller:id/permission_allow_button').click()
-        time.sleep(1)
-
-    def test_guide(self):
+        time.sleep(2)
         self.driver.swipe(start_x=1000, start_y=1000, end_x=200, end_y=1000, duration=800)
-        time.sleep(1)
+        time.sleep(2)
         self.driver.swipe(start_x=1000, start_y=1000, end_x=200, end_y=1000, duration=800)
-        time.sleep(1)
+        time.sleep(2)
         self.driver.swipe(start_x=1000, start_y=1000, end_x=200, end_y=1000, duration=800)
-        time.sleep(1)
+        time.sleep(2)
         # 点击“立即体验”
         self.driver.find_element_by_xpath(
             '//android.widget.Button[@resource-id=\"com.meiweigx.customer:id/btn\"]').click()
-        time.sleep(1)
-        # 点击搜索框
-        self.driver.find_element_by_id('com.meiweigx.customer:id/edit_search').click()
-        time.sleep(2)
+        time.sleep(5)
 
-    def test_exit(self):
-        self.driver.quit()
+        # 点击“我的”
+        # self.driver.find_element_by_xpath(
+        #     '//android.widget.TextView[@text="我的"]').click()
+
+        # self.driver.find_element_by_id('com.meiweigx.customer:id/edit_search').click()#点击搜索框
+        print('已执行完test_1_start')
+        time.sleep(5)
+
+    # def test_exit(self):
+    #     self.driver.quit()
+
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader.loadTestsFromTestCase(test_class_01)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main()
