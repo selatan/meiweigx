@@ -1,21 +1,21 @@
-# -*-coding:utf-8-*-
+# -*- coding:utf-8 -*-
 
 from appium import webdriver
 import time
 import os
-import uiautomator2
+# import uiautomator2
 import unittest
-import HTMLTestRunner
 
+#import HTMLTestRunner
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
 
 class mytest(unittest.TestCase):  # 继承unittest.TestCase
     def tearDown(self):
-        print('用例执行后')  # 每个测试用例执行之后做该操作
+        print('————————用例执行后')  # 每个测试用例执行之后做该操作
 
     def setUp(self):
-        print('用例执行前')  # 每个测试用例执行之前做该操作
+        print('————————用例执行前')  # 每个测试用例执行之前做该操作
 
     def test_info(self):
         desired_caps = {}
@@ -25,10 +25,11 @@ class mytest(unittest.TestCase):  # 继承unittest.TestCase
         desired_caps['platformVersion'] = '7.1.1'
         desired_caps['deviceName'] = '5142c29f'  # 红色oppo5142c29f
         # apk包的路径
-        desired_caps['app'] = PATH('C:\Users\Administrator\Desktop\meiweigx.apk')
+        desired_caps['app'] = PATH(r'C:\Users\Administrator\Desktop\meiweigx.apk')
         desired_caps['appPackage'] = 'com.meiweigx.customer'
         desired_caps['appActivity'] = 'com.meiweigx.customer.ui.LaunchActivity'
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
+        time.sleep(5)
 
     def test_limit(self):
         # 点击“不允许后不再访问”
@@ -58,7 +59,8 @@ class mytest(unittest.TestCase):  # 继承unittest.TestCase
         self.driver.find_element_by_xpath(
             '//android.widget.Button[@resource-id=\"com.meiweigx.customer:id/btn\"]').click()
         time.sleep(1)
-        self.driver.find_element_by_id('com.meiweigx.customer:id/edit_search').click()  # 点击搜索框
+        # 点击搜索框
+        self.driver.find_element_by_id('com.meiweigx.customer:id/edit_search').click()
         time.sleep(2)
 
     def test_exit(self):
