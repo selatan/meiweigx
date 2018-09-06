@@ -67,9 +67,19 @@ class LoginTest(unittest.TestCase):
         inp2 = self.driver.find_element_by_id("com.meiweigx.customer:id/edit_pwd")
         inp2.click()
         inp2.send_keys('123test')
-
+        # 点击登录按钮
         self.driver.find_element_by_id("com.meiweigx.customer:id/btn_login").click()
-        time.sleep(2)
+        time.sleep(1)
+
+        # 获取登录后的昵称
+        name = self.driver.find_elements_by_id('com.meiweigx.customer:id/tv_username').text
+
+        try:
+            assert '测试专用账号' in name
+            print("恭喜，登录成功")
+        except AssertionError as e:
+            print("哦豁，登录失败~~~")
+
 
 
 if __name__ == '__main__':
