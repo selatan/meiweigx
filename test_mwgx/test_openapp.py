@@ -54,8 +54,23 @@ class OpenApp(unittest.TestCase):
         # 点击“立即体验”
         self.driver.find_element_by_xpath(
             '//android.widget.Button[@resource-id=\"com.meiweigx.customer:id/btn\"]').click()
-        time.sleep(1)
 
+        time.sleep(1)
+        # 点击首页弹窗右上角的x按钮
+        self.driver.find_element_by_id('com.meiweigx.customer:id/first_view_closeBtn').click()
+
+        # 一个断言（0是热销商品，1是新品推荐，2是特价促销，以此类推）
+        a = self.driver.find_elements_by_id("com.meiweigx.customer:id/sub_menu_title")[0].text
+        # print(a)
+        # 热销商品不等于a时，打印出“没有找到热销商品”的信息，等于则不打印
+        self.assertEqual("热销商品", a, "没有找到热销商品")
+
+        # ————找到“com.meiweigx.customer:id/sub_menu_title”对应的一组元素的text内容并打印出来————
+        # for i in range(5):
+        #     l = self.driver.find_elements_by_id('com.meiweigx.customer:id/sub_menu_title')[i].text
+        #     print("下标 %d 对应的栏目是 %s."%(i,l))
+        #     print(i)
+        #     print(l)
 
 if __name__ == '__main__':
     # 构造测试集  defaultTestLoader（）即TestLoader（）测试用例加载器，包括多个加载测试用例的方法，返回一个测试套件

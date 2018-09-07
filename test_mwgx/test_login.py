@@ -56,7 +56,7 @@ class LoginTest(unittest.TestCase):
         self.driver.find_element_by_xpath(
             '//android.widget.Button[@resource-id=\"com.meiweigx.customer:id/btn\"]').click()
         time.sleep(1)
-
+        # 点击首页弹窗右上角的x按钮
         self.driver.find_element_by_id('com.meiweigx.customer:id/first_view_closeBtn').click()
 
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='我的']").click()
@@ -66,13 +66,14 @@ class LoginTest(unittest.TestCase):
         inp1.send_keys('18583688372')
         inp2 = self.driver.find_element_by_id("com.meiweigx.customer:id/edit_pwd")
         inp2.click()
-        inp2.send_keys('123test')
+        inp2.send_keys('123test')  #测试环境的登录密码
         # 点击登录按钮
         self.driver.find_element_by_id("com.meiweigx.customer:id/btn_login").click()
         time.sleep(1)
 
         # 获取登录后的昵称
-        name = self.driver.find_elements_by_id('com.meiweigx.customer:id/tv_username').text
+        name = self.driver.find_element_by_id('com.meiweigx.customer:id/tv_username').text
+        #print(name)
 
         try:
             assert '测试专用账号' in name
