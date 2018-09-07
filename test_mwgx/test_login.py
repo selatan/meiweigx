@@ -74,13 +74,11 @@ class LoginTest(unittest.TestCase):
         # 获取登录后的昵称
         name = self.driver.find_element_by_id('com.meiweigx.customer:id/tv_username').text
         #print(name)
-
         try:
-            assert '测试专用账号' in name
-            print("恭喜，登录成功")
+            assert "测试专用账号" in name
+            # print("恭喜，登录成功~~~")
         except AssertionError as e:
             print("哦豁，登录失败~~~")
-
 
 
 if __name__ == '__main__':
