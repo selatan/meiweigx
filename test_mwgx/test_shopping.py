@@ -5,7 +5,7 @@ import appium
 import time
 import unittest
 
-# ————启动app并登录————success————
+# ————登录并加入购物车提交————success——
 
 caps = {}
 # Android7.0及以上系统需要加下面这一行参数
@@ -20,7 +20,7 @@ caps["moReset"] = True
 
 
 # TestCase类，所有测试用例类 继承的基本类
-class LoginTest(unittest.TestCase):
+class ShoppingTest(unittest.TestCase):
 
     # setUp（）方法用于测试用例执行前的初始化工作。如测试用例中需要访问数据库，可以在setUp中建立数据库链接
     # 并进行初始化。如测试用例需要启动Appium服务，则需要在该方法内启动Appium服务。
@@ -33,7 +33,7 @@ class LoginTest(unittest.TestCase):
     #     self.driver.quit()
 
     # 具体的测试用例，必须要以test开头
-    def test_start(self):
+    def test_shopping(self):
         # 点击“不允许后不再访问”
         self.driver.find_element_by_id('com.android.packageinstaller:id/do_not_ask_checkbox').click()
         # 点击始终允许
@@ -59,36 +59,53 @@ class LoginTest(unittest.TestCase):
         # 点击首页弹窗右上角的x按钮
         self.driver.find_element_by_id('com.meiweigx.customer:id/first_view_closeBtn').click()
 
-        # 点击“我的”
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='我的']").click()
+        time.sleep(1)
 
         inp1 = self.driver.find_element_by_id("com.meiweigx.customer:id/edit_username")
         inp1.click()
         inp1.send_keys('18583688372')
         inp2 = self.driver.find_element_by_id("com.meiweigx.customer:id/edit_pwd")
         inp2.click()
-        inp2.send_keys('123test')  #测试环境的登录密码
+        inp2.send_keys('123test')  # 测试环境的登录密码
         # 点击登录按钮
         self.driver.find_element_by_id("com.meiweigx.customer:id/btn_login").click()
         time.sleep(1)
 
-        # 获取登录后的昵称
-        name = self.driver.find_element_by_id('com.meiweigx.customer:id/tv_username').text
-        #print(name)
-        try:
-            assert "测试专用账号" in name
-            # print("恭喜，登录成功~~~")
-        except AssertionError as e:
-            print("哦豁，登录失败~~~")
+        # 点击“商城购物”
+        self.driver.find_elements_by_id("com.meiweigx.customer:id/layout_tab_img")[2].click()
+        time.sleep(1)
+
+        # #点击搜索输入框并输入要搜索的内容，后面的搜索按钮不知道怎么定位了
+        # inp = self.driver.find_element_by_xpath("//android.widget.TextView[@text='搜索食材']")
+        # inp.click()
+        # inp.send_keys('米')
+
+        # 点击“伴手好礼”
+        self.driver.find_element_by_xpath("//android.widget.TextView[@text='伴手好礼']").click()
+        time.sleep(1)
+
+        # 点击第一个商品后的购物车按钮
+        self.driver.find_elements_by_id("com.meiweigx.customer:id/btn_add")[0].click()
+        time.sleep(1)
+
+        # 点击第二个商品后的购物车按钮
+        self.driver.find_elements_by_id("com.meiweigx.customer:id/btn_add")[1].click()
+        time.sleep(1)
+
+        # 点击购物车按钮
+        self.driver.find_element_by_xpath("//android.widget.TextView[@text='购物车']").click()
+        time.sleep(1)
+
+        # 点击“结算”按钮
+        self.driver.find_element_by_id("com.meiweigx.customer:id/text_pay").click()
+        time.sleep(1)
+
+        # 点击“提交订单“
+        self.driver.find_element_by_id("com.meiweigx.customer:id/btn_buy").click()
+
+        # ……
 
 
 if __name__ == '__main__':
-    # 构造测试集  defaultTestLoader（）即TestLoader（）测试用例加载器，包括多个加载测试用例的方法，返回一个测试套件
-    # loadTestsFromTestCase（）根据给定的测试类，获取其中的所有测试方法，并返回一个测试套件
-    suite = unittest.TestLoader.loadTestsFromTestCase(LoginTest)
-
-    # unittest框架的TextTestRunner（）类，通过该类下面的run（）方法来运行suite所组装的测试用例，入参为suite测试套件
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
-    # 上面两行代码可以换成下面一行
-    # unittest.main()
+    unittest.main()
