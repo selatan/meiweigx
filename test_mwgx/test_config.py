@@ -4,10 +4,9 @@ from appium import webdriver
 import appium
 import time
 import unittest
-from test_mwgx import test_login
 
 
-# ————安装并启动app进首页————success——
+# ————安装、启动并进首页————success——
 
 class SetConfig(unittest.TestCase):
 
@@ -15,6 +14,7 @@ class SetConfig(unittest.TestCase):
     # 无论这个方法写在哪里，都是最后才执行
     # def tearDown(self):  #退出程序
     #     self.driver.quit()
+
 
     def test_install_open(self):
         caps = {}
@@ -26,8 +26,10 @@ class SetConfig(unittest.TestCase):
         caps["platformVersion"] = "7.1.1"
         caps['appPackage'] = 'com.meiweigx.customer'
         caps['appActivity'] = 'com.meiweigx.customer.ui.LaunchActivity'
-        caps["moReset"] = True
+        caps["noReset"] = False  #
         self.driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", caps)
+
+        time.sleep(2)
 
         # 点击“不允许后不再访问”
         self.driver.find_element_by_id('com.android.packageinstaller:id/do_not_ask_checkbox').click()

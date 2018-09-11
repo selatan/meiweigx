@@ -77,9 +77,9 @@ class ShoppingTest(unittest.TestCase):
         time.sleep(1)
 
         # #点击搜索输入框并输入要搜索的内容，后面的搜索按钮不知道怎么定位了
-        # inp = self.driver.find_element_by_xpath("//android.widget.TextView[@text='搜索食材']")
-        # inp.click()
-        # inp.send_keys('米')
+        inp = self.driver.find_element_by_xpath("//android.widget.TextView[@text='搜索食材']")
+        inp.click()
+        inp.send_keys('米')
 
         # 点击“伴手好礼”
         self.driver.find_element_by_xpath("//android.widget.TextView[@text='伴手好礼']").click()

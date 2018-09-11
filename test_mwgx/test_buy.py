@@ -8,25 +8,13 @@ from test_mwgx import test_login
 
 # ————登录并加入购物车提交————success——
 
-caps = {}
-# Android7.0及以上系统需要加下面这一行参数
-caps['automationName'] = 'UiAutomator2'
-caps["platformName"] = "android"
-caps["deviceName"] = "5142c29f"
-caps["app"] = "C:\\Users\Administrator\Desktop\meiweigx.apk"
-caps["platformVersion"] = "7.1.1"
-caps['appPackage'] = 'com.meiweigx.customer'
-caps['appActivity'] = 'com.meiweigx.customer.ui.LaunchActivity'
-caps["moReset"] = True
-
-
 # TestCase类，所有测试用例类 继承的基本类
 class BuyTest(unittest.TestCase):
 
     # setUp（）方法用于测试用例执行前的初始化工作。如测试用例中需要访问数据库，可以在setUp中建立数据库链接
     # 并进行初始化。如测试用例需要启动Appium服务，则需要在该方法内启动Appium服务。
-    def setUp(self):
-        self.driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", caps)
+    # def setUp(self):
+    #     self.driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", caps)
 
     # tearDown（）方法用于测试用例执行之后的善后工作。如关闭数据库连接，退出应用。
     # 无论这个方法写在哪里，都是最后才执行
@@ -35,8 +23,9 @@ class BuyTest(unittest.TestCase):
 
     # 具体的测试用例，必须要以test开头
     def test_buy(self):
-        # ★★★★★实例化test_login.py文件中LoginTest类的test_start()方法，进行启动、登录操作★★★★★
-        a = test_login.LoginTest.test_start(self)
+        # ★★★★★实例化
+        a = test_login.LoginTest.test_login(self)
+
         time.sleep(2)
 
         # 点击“商城购物”
@@ -57,7 +46,7 @@ class BuyTest(unittest.TestCase):
         time.sleep(1)
 
         # 点击第二个商品后的购物车按钮
-        # self.driver.find_elements_by_id("com.meiweigx.customer:id/btn_add")[1].click()
+        self.driver.find_elements_by_id("com.meiweigx.customer:id/btn_add")[1].click()
         time.sleep(1)
 
         # 点击购物车按钮
